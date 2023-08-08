@@ -1,7 +1,7 @@
 import { NodeMailgun } from 'ts-mailgun';
 
 const API_KEY = process.env.MAIL_KEY; 
-const DOMAIN = 'sandbox66befa0c57a643ddb7c1604c3b1e286b.mailgun.org';
+const DOMAIN = process.env.MAILDOMAIN_URI;
 
 export class Mail {
   static async init() {
@@ -9,7 +9,7 @@ export class Mail {
     //mailer.testMode = true;
     //mailer.options! = { host: 'api.eu.mailgun.net' }; // If create a EU domain
     mailer.apiKey = API_KEY!;
-    mailer.domain = DOMAIN;
+    mailer.domain = DOMAIN!;
     mailer.fromEmail = 'ihbelda@gmail.com';
     mailer.fromTitle = 'Present3';
 

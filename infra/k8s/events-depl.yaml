@@ -34,6 +34,8 @@ spec:
                 secretKeyRef:
                   name: mail-secret
                   key: MAIL_KEY
+            - name: MAILDOMAIN_URI
+              value: 'sandbox66befa0c57a643ddb7c1604c3b1e286b.mailgun.org'            
 ---
 apiVersion: v1
 kind: Service
