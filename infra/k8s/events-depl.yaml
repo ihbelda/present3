@@ -29,6 +29,11 @@ spec:
                 secretKeyRef:
                   name: stripe-secret
                   key: STRIPE_KEY
+            - name: MAIL_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: mail-secret
+                  key: MAIL_KEY
 ---
 apiVersion: v1
 kind: Service

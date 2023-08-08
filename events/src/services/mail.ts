@@ -1,6 +1,6 @@
 import { NodeMailgun } from 'ts-mailgun';
 
-const API_KEY = 'b489d2d647e7dfa12c77413052b23724-73f745ed-fb82241a'; // TODO: add it to k8s variable
+const API_KEY = process.env.MAIL_KEY; 
 const DOMAIN = 'sandbox66befa0c57a643ddb7c1604c3b1e286b.mailgun.org';
 
 export class Mail {
@@ -8,7 +8,7 @@ export class Mail {
     const mailer = new NodeMailgun();
     //mailer.testMode = true;
     //mailer.options! = { host: 'api.eu.mailgun.net' }; // If create a EU domain
-    mailer.apiKey = API_KEY;
+    mailer.apiKey = API_KEY!;
     mailer.domain = DOMAIN;
     mailer.fromEmail = 'ihbelda@gmail.com';
     mailer.fromTitle = 'Present3';
