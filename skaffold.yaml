@@ -1,0 +1,37 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  #local:
+  #  push: false
+  googleCloudBuild:
+    projectId: silver-wall-388517  # For GCP
+  artifacts:
+    # - image: ihbelda/users # For local deploy or docker hub
+    - image: us.gcr.io/silver-wall-388517/users # For GCP
+      context: users
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: us.gcr.io/silver-wall-388517/events # For GCP
+      context: events
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+    - image: us.gcr.io/silver-wall-388517/client # For GCP
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .

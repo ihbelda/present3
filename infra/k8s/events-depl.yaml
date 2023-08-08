@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: events-depl
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: events
+  template:
+    metadata:
+      labels:
+        app: events
+    spec: 
+      containers:
+        - name: events
+          #image: ihbelda/events # local or docker hub
+          image: us.gcr.io/silver-wall-388517/events
+          env:
+            - name: MONGO_URI
+              value: 'mongodb://events-mongo-srv:27017/events'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: events-srv
+spec:
+  selector:
+    app: events
+  ports:
+    - name: events
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+
