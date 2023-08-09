@@ -70,7 +70,7 @@ router.post(
     await event.save();
     // Publish event saying that an order was created
     new MemberCreatedPublisher(natsWrapper.client).publish({
-      userId: member.userId, 
+      username: member.username,
       email: member.email!,
       version: event.version, // TODO: double-check if using event version is ok
     });
